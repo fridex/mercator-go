@@ -144,13 +144,13 @@ func runHandler(res *Resolved, config *core.Configuration, out *ItemRecord, asyn
 	// Get the output from Stdout as well as process status
 	output, err := cmd.Output()
 	if err != nil {
-		//log.Printf("%s => %s: %q ->  %q", res.Path, err.Error(), cmd.Args, string(output))
+		log.Fprintf(os.Stderr, "%s => %s: %q ->  %q", res.Path, err.Error(), cmd.Args, string(output))
 		return err
 	}
 
 	// Result is always a JSON we unmarshal it into `out.Result` directly
 	if err = json.Unmarshal(output, &out.Result); err != nil {
-		//log.Printf("%s: %s", err.Error(), string(output))
+		log.Fprintf(os.Stderr, "%s: %s", err.Error(), string(output))
 		return err
 	}
 
